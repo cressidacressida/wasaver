@@ -1,0 +1,292 @@
+/*
+wasaver
+Copyright (C) 2020  cressidacressida
+
+This file is part of wasaver.
+
+wasaver is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+wasaver is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with wasaver.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+:root {
+    --main-bg-color:#fdf6e3;
+    --main-fg-color: #073642;
+    --secondary-bg-color: #eee8d5;
+    --secondary-fg-color: #586e75;
+
+    --header-bg-color: var(--messages-border-color);
+    --header-fg-color: #002b36;
+    --header-border-color: var(--main-fg-color);
+    --buttons-hover-bg-color: var(--link-bg-color);
+    --date-link-hover-color: var(--link-bg-color);
+    --date-link-highlight-color: var(--notifications-bg-color);
+
+    --separator-color: var(--main-fg-color);
+    --messages-bg-color: #a8dadc;
+    --messages-border-color: #457b9d;
+    --notifications-bg-color: #ee6f57;
+    --notifications-border-color: #e63946;
+    --quote-bg-color: var(--secondary-bg-color);
+    --quote-border-color: var(--secondary-fg-color);
+    --link-bg-color: #74c69d;
+    --link-hover-bg-color: #95d5b2;
+    --images-border-color: var(--messages-border-color);
+
+    --main-border-size: 2px;
+    --secondary-border-size: 1px;
+    --date-margin-top: 5px;
+}
+
+/* main layout */
+body {
+    color: var(--main-fg-color);
+    background-color: var(--main-bg-color);
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+header {
+    color: var(--header-fg-color);
+    background-color: var(--header-bg-color);
+    border-bottom: var(--main-border-size) solid var(--header-border-color);
+    display: flex;
+    justify-content: space-between;
+}
+#page {
+    display: flex;
+    overflow: hidden;
+}
+#main {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+#sidebar {
+    width: max-content;
+    min-width: 200px;
+    overflow-y: auto;
+}
+
+/* header */
+header h1 {
+    font-size: large;
+}
+header > div {
+    margin: 0 10px;
+}
+#toolbar {
+    display: flex;
+    margin-right: 0;
+}
+#toolbar button {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    padding: 8px;
+    height: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+#toolbar button:active {
+    padding: 8px;
+}
+@media (hover: hover) and (pointer: fine) {
+    #toolbar button:hover {
+        background-color: var(--buttons-hover-bg-color);
+    }
+}
+
+/* dropdown and sidebar */
+.dropdown-wrapper {
+    display: none;
+    position: relative;
+}
+.dropdown-content {
+    background: var(--header-bg-color);
+    border: var(--main-border-size) solid;
+    border-top: 0;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: max-content;
+    min-width: 200px;
+    max-height: 80vh;
+    display: none;
+    overflow-y: auto;
+    z-index: 1;
+}
+.dropdown-content.show {
+    display: block;
+}
+
+/* date lists */
+#dropdown-content-date a, #sidebar a {
+    padding: 10px;
+    display: block;
+    text-align: center;
+}
+#dropdown-content-date a:not(.highlight):nth-child(even),
+#sidebar               a:not(.highlight):nth-child(even) {
+    background: var(--main-bg-color);
+}
+#dropdown-content-date a:not(.highlight):nth-child(odd),
+#sidebar               a:not(.highlight):nth-child(odd) {
+    background: var(--secondary-bg-color);
+}
+@media (hover: hover) and (pointer: fine) {
+    #dropdown-content-date a:not(.highlight):hover,
+    #sidebar               a:not(.highlight):hover {
+        background-color: var(--date-link-hover-color);
+    }
+}
+#dropdown-content-date a.highlight, #sidebar a.highlight {
+    background-color: var(--date-link-highlight-color);
+}
+
+/* containers */
+.container {
+    border: var(--main-border-size) solid;
+    box-sizing: border-box;
+    width: max-content;
+    max-width: 400px;
+    padding: 4px;
+    margin: 10px;
+}
+.container.real-message {
+    background-color: var(--messages-bg-color);
+    border-color: var(--messages-border-color);
+}
+.container.from-me {
+    margin-left: auto;
+}
+.container.not-from-me {
+    margin-right: auto;
+}
+.container.not-real-message {
+    background-color: var(--notifications-bg-color);
+    border-color: var(--notifications-border-color);
+    margin-left: auto;
+    margin-right: auto;
+}
+hr {
+    border-width: 0;
+    border-top: 1px dotted var(--separator-color);
+    margin-bottom: 0;
+}
+.date {
+    display: block;
+    margin-top: var(--date-margin-top);
+    width: 150px;
+    text-align: center;
+}
+.date.sticky {
+    position: sticky;
+    top: var(--date-margin-top);
+}
+
+/* messages header */
+.message-header-container {
+    display: flex;
+    justify-content: space-between;
+    font-size: small;
+    color: var(--secondary-fg-color);
+    margin-bottom: 10px;
+}
+.attribute {
+    font-style: italic;
+    margin-left: 20px;
+}
+
+/* messages */
+.image img {
+    max-width: 100%;
+    max-height: 500px;
+    border: var(--secondary-border-size) solid var(--images-border-color);
+}
+.revoked {
+    color: var(--secondary-fg-color);
+    font-style: italic;
+}
+.vcard, .coordinates, .quote-container {
+    border: var(--secondary-border-size) solid var(--quote-border-color);
+    background-color: var(--quote-bg-color);
+    padding: 3px;
+}
+.vcard {
+    font-family: "Lucida Console", Monaco, monospace;
+}    
+
+/* quoted messages */
+.quote-container {
+    font-size: small;
+    margin-bottom: 5px;
+}
+.quote-header {
+    color: var(--secondary-fg-color);
+    margin-bottom: 3px;
+}
+
+/* links */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+.text a, .caption a, .geo a {
+    background-color: var(--link-bg-color);
+}
+.text a:hover, .caption a:hover, .geo a:hover {
+    background-color: var(--link-hover-bg-color);
+}
+
+/* buttons */
+header .arrow {
+    border-color: var(--header-fg-color);
+}
+.arrow {
+    border-style: solid;
+    border-width: 3px 3px 0 0;
+    display: inline-block;
+    padding: 8px;
+    box-sizing: border-box;
+}
+.arrow.up {
+    transform: translateY(25%) rotate(-45deg);
+}
+.arrow.down {
+    transform: translateY(-25%) rotate(135deg);
+}
+.arrow.left {
+    transform: translateX(-25%) rotate(45deg);
+}
+.arrow.right {
+    transform: translateX(25%) rotate(225deg);
+}
+header .hamburger {
+    background-color: var(--header-fg-color);
+}
+.hamburger {
+    width: 22px;
+    height: 3px;
+    margin: 4px 0;
+}
+
+/* mobile layout */
+@media (max-width: 600px) {
+    #sidebar {
+        display: none;
+    }
+    .dropdown-wrapper {
+        display: block;
+    }
+}
