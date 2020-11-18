@@ -1,0 +1,67 @@
+diff -Naur old/WebWhatsapp-Wrapper-master/webwhatsapi/objects/message.py new/WebWhatsapp-Wrapper-master/webwhatsapi/objects/message.py
+--- old/WebWhatsapp-Wrapper-master/webwhatsapi/objects/message.py	2020-10-19 13:31:37.000000000 +0200
++++ new/WebWhatsapp-Wrapper-master/webwhatsapi/objects/message.py	2020-11-18 23:57:47.909116292 +0100
+@@ -65,6 +65,16 @@
+             self.content = ""
+             self.safe_content = "..."
+ 
++        if js_obj["quotedStanzaID"]:
++            self.quoting = js_obj["quotedStanzaID"]
++        else:
++            self.quoting = ""
++
++        if js_obj["isForwarded"]:
++            self.forwarded = js_obj["isForwarded"]
++        else:
++            self.forwarded = False
++
+     def __repr__(self):
+         return "<Message - {type} from {sender} at {timestamp}: {content}>".format(
+             type=self.type,
+@@ -173,32 +183,34 @@
+ 
+ 
+ class NotificationMessage(Message):
++    readable_defs = {
++        "call_log": {"miss": "Missed Call"},
++        "e2e_notification": {"encrypt": "Messages now Encrypted"},
++        "gp2": {
++            "invite": "Joined an invite link",
++            "create": "Created group",
++            "add": "Added to group",
++            "remove": "Removed from group",
++            "leave": "Left the group",
++        },
++    }
++        
+     def __init__(self, js_obj, driver=None):
+         super(NotificationMessage, self).__init__(js_obj, driver)
+         self.type = js_obj["type"]
+         self.subtype = js_obj["subtype"]
++        self.readable = self.readable_defs[self.type][self.subtype]
+         if js_obj["recipients"]:
+             self.recipients = [getContacts(x, driver) for x in js_obj["recipients"]]
+ 
+     def __repr__(self):
+-        readable = {
+-            "call_log": {"miss": "Missed Call"},
+-            "e2e_notification": {"encrypt": "Messages now Encrypted"},
+-            "gp2": {
+-                "invite": "Joined an invite link",
+-                "create": "Created group",
+-                "add": "Added to group",
+-                "remove": "Removed from group",
+-                "leave": "Left the group",
+-            },
+-        }
+         sender = (
+             ""
+             if not self.sender
+             else ("from " + str(safe_str(self.sender.get_safe_name())))
+         )
+         return "<NotificationMessage - {type} {recip} {sender} at {timestamp}>".format(
+-            type=readable[self.type][self.subtype],
++            type=self.readable,
+             sender=sender,
+             timestamp=self.timestamp,
+             recip=""
