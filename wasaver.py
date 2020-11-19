@@ -177,7 +177,7 @@ def main():
         contact_name = args[0]
 
     contact_safe_name = "".join(c for c in contact_name if c in string.ascii_letters or c in string.digits or c == '_')
-    database_name = contact_safe_name + "_chat"
+    database_name = "chat_" + contact_safe_name
             
     # create database and tables
     connection = pymysql.connect(host = options["db_host"], user = options["db_user"], password = options["db_password"], charset="utf8mb4", autocommit=False)

@@ -52,7 +52,7 @@ if(! (isset($contact_name) && $contact_name !== '')) {
 
 $contact_safe_name = preg_replace('/[^a-zA-Z0-9_]/', '', $contact_name);
 $path = 'media_'.$contact_safe_name;
-$db_name = $contact_safe_name."_chat";
+$db_name = 'chat_'.$contact_safe_name;
 $page_title = "chat with {$contact_name}";
 
 $query = "
