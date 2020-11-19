@@ -2,7 +2,7 @@
 Save WhatsApp chats and browse them offline
 
 wasaver uses [WebWhatsapp-Wrapper](https://github.com/mukulhase/WebWhatsapp-Wrapper) to get WhatsApp chats from WhatsApp Web interface. Messages data is stored in a MySQL database and media is downloaded into a local directory.  
-Later, page.php can be used offline to fetch the data from the database. An html page is generated, with which the chat can be viewed through a WhatsApp-like interface.
+Later a PHP script can be used offline to fetch the data from the database. An HTML page is generated, with which the chat can be viewed through a WhatsApp-like interface.
 
 ## Prerequisites
 You need WebWhatsapp-Wrapper dependences and a MySQL database up and running (tested with MariaDB).
@@ -12,7 +12,7 @@ First clone wasaver repository:
 ```
 $ git clone https://github.com/cressidacressida/wasaver.git
 ```
-Then clone WebWhatsapp-Wrapper and patch it to get some message properties available in Message objects:
+Then clone WebWhatsapp-Wrapper and patch it to get some message properties available in `Message` objects:
 ```
 $ cd wasaver
 $ git clone https://github.com/mukulhase/WebWhatsapp-Wrapper.git
@@ -28,15 +28,15 @@ Description of commmand line arguments is available via:
 $ ./wasaver.py -h
 ```
 
-A database named `[safe_contact_name]_chat` is created and populated (`safe_contact_name` is nothing but `contact_name with` all non-alphanumeric characters removed). Media is downloaded in `media_[safe_contact_name]`.   
-Running the same command again will just update the database with new messages and download new media, unless option `-R` is used.
+A database named `chat_[safe_contact_name]` is created and populated (`safe_contact_name` is nothing but `contact_name` with all non-alphanumeric characters removed). Media is downloaded in `media_[safe_contact_name]`.   
+Running the same command again will just update the database with new messages and related media, unless option `-R` is used.
 
 ### Chat browsing
-page.php uses the contact_name variable defined inside itself (if not commented) or the setting in the config file to get the desired data from the database:
+`page.php` uses the `contact_name` variable defined inside itself (if not commented) or the setting in the config file to get the desired data from the database:
 ```
 $ php page.php > page.html
 ```
-### Notes
+## Notes
 Tested with WebWhatsapp-Wrapper latest version as to 18/11/2020. HTML page tested with Firefox only.
 
 ## Legal
