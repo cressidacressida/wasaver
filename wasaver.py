@@ -22,7 +22,7 @@ import os, sys, getopt, string, re
 from datetime import datetime
 import pymysql.cursors
 
-sys.path.append(os.path.dirname('WebWhatsapp-Wrapper-master/'))
+sys.path.append(os.path.dirname('WebWhatsapp-Wrapper/'))
 from webwhatsapi import WhatsAPIDriver
 
 default_config_file = re.sub(r'^(\./)?(.+)\.py$', r'\2.conf', sys.argv[0])

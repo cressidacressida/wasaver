@@ -1,6 +1,6 @@
-diff -Naur old/WebWhatsapp-Wrapper-master/webwhatsapi/objects/message.py new/WebWhatsapp-Wrapper-master/webwhatsapi/objects/message.py
---- old/WebWhatsapp-Wrapper-master/webwhatsapi/objects/message.py	2020-10-19 13:31:37.000000000 +0200
-+++ new/WebWhatsapp-Wrapper-master/webwhatsapi/objects/message.py	2020-11-18 23:57:47.909116292 +0100
+diff -Naur old/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py new/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py
+--- old/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py	2020-10-19 13:31:37.000000000 +0200
++++ new/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py	2020-11-18 23:57:47.909116292 +0100
 @@ -65,6 +65,16 @@
              self.content = ""
              self.safe_content = "..."
