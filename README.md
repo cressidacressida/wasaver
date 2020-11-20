@@ -1,6 +1,8 @@
 # wasaver
 Save WhatsApp chats and browse them offline
 
+<p align="center"><img alt="wasaver screenshot" src="screenshot.png" width="300px" align="center"></p>
+
 wasaver uses [WebWhatsapp-Wrapper](https://github.com/mukulhase/WebWhatsapp-Wrapper) to get WhatsApp chats from WhatsApp Web interface. Messages data is stored in a MySQL database and media is downloaded into a local directory.  
 Later a PHP script can be used offline to fetch the data from the database. An HTML page is generated, with which the chat can be viewed through a WhatsApp-like interface.
 
