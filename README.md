@@ -14,7 +14,7 @@ First clone wasaver repository:
 ```
 $ git clone https://github.com/cressidacressida/wasaver.git
 ```
-Then clone WebWhatsapp-Wrapper and patch it to get some message properties available in `Message` objects:
+Then clone WebWhatsapp-Wrapper and patch it to get some message properties available in the `Message` objects:
 ```
 $ cd wasaver
 $ git clone https://github.com/mukulhase/WebWhatsapp-Wrapper.git
@@ -31,7 +31,7 @@ $ ./wasaver.py -h
 ```
 
 A database named `chat_[safe_contact_name]` is created and populated (`safe_contact_name` is nothing but `contact_name` with all non-alphanumeric characters removed). Media is downloaded in `media_[safe_contact_name]`.   
-Running the same command again will just update the database with new messages and related media, unless option `-R` is used.
+Running the same command again will just update the database with new messages and download their related media, unless option `-R` is used.
 
 ### Chat browsing
 `page.php` uses the `contact_name` variable defined inside itself (if not commented) or the setting in the config file to get the desired data from the database:
