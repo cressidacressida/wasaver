@@ -1,6 +1,6 @@
 diff -Naur old/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py new/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py
---- old/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py	2020-10-19 13:31:37.000000000 +0200
-+++ new/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py	2020-11-18 23:57:47.909116292 +0100
+--- old/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py	2020-11-21 00:16:45.248216296 +0100
++++ new/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py	2020-11-21 00:17:34.102218052 +0100
 @@ -65,6 +65,16 @@
              self.content = ""
              self.safe_content = "..."
@@ -18,42 +18,32 @@ diff -Naur old/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py new/WebWhatsap
      def __repr__(self):
          return "<Message - {type} from {sender} at {timestamp}: {content}>".format(
              type=self.type,
-@@ -173,32 +183,34 @@
- 
+@@ -174,13 +184,6 @@
  
  class NotificationMessage(Message):
-+    readable_defs = {
-+        "call_log": {"miss": "Missed Call"},
-+        "e2e_notification": {"encrypt": "Messages now Encrypted"},
-+        "gp2": {
-+            "invite": "Joined an invite link",
-+            "create": "Created group",
-+            "add": "Added to group",
-+            "remove": "Removed from group",
-+            "leave": "Left the group",
-+        },
-+    }
-+        
      def __init__(self, js_obj, driver=None):
-         super(NotificationMessage, self).__init__(js_obj, driver)
-         self.type = js_obj["type"]
-         self.subtype = js_obj["subtype"]
-+        self.readable = self.readable_defs[self.type][self.subtype]
-         if js_obj["recipients"]:
-             self.recipients = [getContacts(x, driver) for x in js_obj["recipients"]]
- 
-     def __repr__(self):
--        readable = {
--            "call_log": {"miss": "Missed Call"},
--            "e2e_notification": {"encrypt": "Messages now Encrypted"},
--            "gp2": {
--                "invite": "Joined an invite link",
--                "create": "Created group",
--                "add": "Added to group",
--                "remove": "Removed from group",
--                "leave": "Left the group",
--            },
--        }
+-        super(NotificationMessage, self).__init__(js_obj, driver)
+-        self.type = js_obj["type"]
+-        self.subtype = js_obj["subtype"]
+-        if js_obj["recipients"]:
+-            self.recipients = [getContacts(x, driver) for x in js_obj["recipients"]]
+-
+-    def __repr__(self):
+         readable = {
+             "call_log": {"miss": "Missed Call"},
+             "e2e_notification": {"encrypt": "Messages now Encrypted"},
+@@ -192,13 +195,21 @@
+                 "leave": "Left the group",
+             },
+         }
++        super(NotificationMessage, self).__init__(js_obj, driver)
++        self.type = js_obj["type"]
++        self.subtype = js_obj["subtype"]
++        self.readable = readable[self.type][self.subtype]
++        if js_obj["recipients"]:
++            self.recipients = [getContacts(x, driver) for x in js_obj["recipients"]]
++
++    def __repr__(self):
          sender = (
              ""
              if not self.sender
