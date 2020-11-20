@@ -30,16 +30,20 @@ function scrollToBottom(id) {
 function showDropDownDate() {
     var dropdown = document.getElementById("dropdown-content-date");
     dropdown.classList.toggle("show");
+    document.getElementById("dropdown-button-date").classList.toggle("show");
     if(dropdown.classList.contains("show"))
         dropdown.getElementsByClassName("highlight")[0].scrollIntoView({block: "center"});
 }
 
 window.onclick = function(event) {
-    var dropdown = document.getElementById("dropdown-content-date");
-    if(! (document.getElementById("dropdown-button-date").contains(event.target) ||
-          dropdown.contains(event.target))) {
-        if (dropdown.classList.contains("show"))
-            dropdown.classList.remove("show");
+    var dropdown_content = document.getElementById("dropdown-content-date");
+    var dropdown_button = document.getElementById("dropdown-button-date");
+    if(! (dropdown_button.contains(event.target) ||
+          dropdown_content.contains(event.target))) {
+        [dropdown_content, dropdown_button].forEach(element => {
+            if(element.classList.contains("show"))
+                element.classList.remove("show");
+        });
     }
 }
 
@@ -51,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
     main = document.getElementById("main");
     list = document.getElementsByClassName("date");
     var elements = [document.getElementById("dropdown-content-date"),
-                document.getElementById("sidebar")];
+                    document.getElementById("sidebar")];
     alists = elements.map(x => x.getElementsByClassName("date-link"));
     main.addEventListener("scroll", onScroll)
     onScroll();

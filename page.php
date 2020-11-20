@@ -57,7 +57,7 @@ $mysqli = new mysqli($options["db_host"], $options["db_user"], $options["db_pass
         <div class="arrow down"></div>
       </button>
       <div class="dropdown-wrapper">
-        <button id="dropdown-button-date" onclick="showDropDownDate()">
+        <button class="dropdown-button" id="dropdown-button-date" onclick="showDropDownDate()">
           <div>
             <div class="hamburger"></div>
             <div class="hamburger"></div>

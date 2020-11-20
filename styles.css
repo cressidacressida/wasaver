@@ -91,7 +91,6 @@ header > div {
 #toolbar button {
     display: flex;
     align-items: center;
-    background: none;
     border: none;
     padding: 8px;
     height: 100%;
@@ -100,6 +99,9 @@ header > div {
 }
 #toolbar button:active {
     padding: 8px;
+}
+#toolbar button:not(.show) {
+    background-color: inherit;
 }
 @media (hover: hover) and (pointer: fine) {
     #toolbar button:hover {
@@ -111,6 +113,9 @@ header > div {
 .dropdown-wrapper {
     display: none;
     position: relative;
+}
+.dropdown-button.show {
+    background-color: var(--buttons-hover-bg-color);
 }
 .dropdown-content {
     background: var(--header-bg-color);
