@@ -1,6 +1,6 @@
 diff -Naur old/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py new/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py
---- old/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py	2020-11-21 00:16:45.248216296 +0100
-+++ new/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py	2020-11-21 00:17:34.102218052 +0100
+--- old/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py	2020-11-23 12:14:36.499441530 +0100
++++ new/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py	2020-11-23 12:16:42.777582297 +0100
 @@ -65,6 +65,16 @@
              self.content = ""
              self.safe_content = "..."
@@ -18,7 +18,7 @@ diff -Naur old/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py new/WebWhatsap
      def __repr__(self):
          return "<Message - {type} from {sender} at {timestamp}: {content}>".format(
              type=self.type,
-@@ -174,13 +184,6 @@
+@@ -174,15 +184,11 @@
  
  class NotificationMessage(Message):
      def __init__(self, js_obj, driver=None):
@@ -30,9 +30,15 @@ diff -Naur old/WebWhatsapp-Wrapper/webwhatsapi/objects/message.py new/WebWhatsap
 -
 -    def __repr__(self):
          readable = {
-             "call_log": {"miss": "Missed Call"},
+-            "call_log": {"miss": "Missed Call"},
++            "call_log": {
++                "miss": "Missed Call",
++                "miss_video": "Missed Video Call",
++            },
              "e2e_notification": {"encrypt": "Messages now Encrypted"},
-@@ -192,13 +195,21 @@
+             "gp2": {
+                 "invite": "Joined an invite link",
+@@ -192,13 +198,21 @@
                  "leave": "Left the group",
              },
          }
